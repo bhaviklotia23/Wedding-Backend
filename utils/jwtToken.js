@@ -2,7 +2,6 @@ const cookie = require("cookie");
 const jwt = require("jsonwebtoken");
 
 const sendToken = (user, statusCode, res) => {
-  console.log("user", user)
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { // Token in which user details like Id is stored.
     expiresIn: process.env.JWT_EXPIRES_IN
   });
