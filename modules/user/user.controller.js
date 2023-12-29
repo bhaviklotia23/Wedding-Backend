@@ -102,7 +102,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.deleteUser = catchAsyncError(async (req, res) => {
+exports.deleteUser = catchAsyncError(async (req, res, err) => {
   try {
     const userId = req.params.id; // Assuming the user ID is passed as a parameter
 
@@ -111,7 +111,7 @@ exports.deleteUser = catchAsyncError(async (req, res) => {
 
     console.log(user)
     if (!user) {
-      return res.status(error.statusCode).json({
+      return res.status(err.statusCode).json({
         status: 404,
         success: false,
         message: "User not found",

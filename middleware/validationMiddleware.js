@@ -1,5 +1,3 @@
-const AppError = require("../utils/errorHandler");
-
 const validateSchemaMiddleware = (schema) => {
   return async (req, res, next) => {
     try {
