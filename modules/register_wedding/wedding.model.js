@@ -156,6 +156,10 @@ const weddingRegisterSchema = new mongoose.Schema({
       ],
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
   //   payment: {
   //     modeOfPayment: String,
   //   },

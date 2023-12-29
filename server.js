@@ -8,6 +8,7 @@ const user = require("./modules/user/user.routes");
 const content = require("./modules/content/content.routes");
 const errorMiddleware = require("./middleware/errorMiddleware");
 const wedding = require("./modules/register_wedding/wedding.route");
+const contact = require("./modules/contact/contact.route")
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.get('/',(req, res)=>{
 app.use("/api/v1", user);
 app.use("/api/v1", content);
 app.use("/api/v1", wedding);
+app.use("/api/v1", contact);
+
 
 const startServer = async () => {
   try {

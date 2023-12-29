@@ -92,7 +92,6 @@ exports.logoutUser = catchAsyncError(async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json({ success: true, data: users });
   } catch (error) {
     return res.status(500).json({
       status: 500,

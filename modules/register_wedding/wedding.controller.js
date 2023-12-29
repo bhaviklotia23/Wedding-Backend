@@ -7,14 +7,29 @@ exports.registerWedding = catchAsyncError(async (req, res) => {
     const wedding = await weddingModel.create(weddingData);
     res.status(201).json({ success: true, data: wedding });
   } catch (error) {
+    console.log("error", error);
     res.status(400).json({ success: false, error: error.message });
   }
 });
 
 exports.getAllWeddings = catchAsyncError(async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const perPage = 10;
+
   try {
-    const data = await weddingModel.find();
-    res.status(200).json({ success: true, data: data });
+    const totalWeddingsCount = await weddingModel.countDocuments();
+    const weddings = await weddingModel
+      .find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    res.status(200).json({
+      data: weddings,
+      currentPage: page,
+      total: totalWeddingsCount,
+      success: true,
+    });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
