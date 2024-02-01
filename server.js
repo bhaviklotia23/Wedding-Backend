@@ -8,29 +8,37 @@ const user = require("./modules/user/user.routes");
 const content = require("./modules/content/content.routes");
 const errorMiddleware = require("./middleware/errorMiddleware");
 const wedding = require("./modules/register_wedding/wedding.route");
-const contact = require("./modules/contact/contact.route")
+const contact = require("./modules/contact/contact.route");
+const fileUpload = require("express-fileupload");
+const bodyParser = require("body-parser");
 
 dotenv.config();
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 app.use(cors());
 
 app.use(errorMiddleware);
 
-app.get('/',(req, res)=>{
+app.get("/", (req, res) => {
   return res.status(200).json({
-    status:200,
-    message:"Hello Api",
+    status: 200,
+    message: "Hello Api",
   });
-})
+});
 app.use("/api/v1", user);
 app.use("/api/v1", content);
 app.use("/api/v1", wedding);
 app.use("/api/v1", contact);
-
 
 const startServer = async () => {
   try {
