@@ -94,9 +94,9 @@ const weddingRegisterSchema = new mongoose.Schema({
     // required: true,
   },
 
-  photo: {
-    type: String,
-  },
+  // photo: {
+  //   type: String,
+  // },
   story: {
     type: String,
     // required: true,

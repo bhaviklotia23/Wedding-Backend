@@ -3,57 +3,58 @@ const weddingModel = require("./wedding.model");
 const cloudinary = require("cloudinary").v2;
 const util = require("util");
 
-cloudinary.config({
-  cloud_name: "dv2a30mpl",
-  api_key: "824685227364465",
-  api_secret: "gPbHxldWlobV2LttLN2kTcIfpCQ",
-});
+// cloudinary.config({
+//   cloud_name: "dv2a30mpl",
+//   api_key: "824685227364465",
+//   api_secret: "gPbHxldWlobV2LttLN2kTcIfpCQ",
+// });
 
 exports.registerWedding = catchAsyncError(async (req, res) => {
   try {
     const weddingData = req.body;
-    const file = req.files.photo;
 
-    const weddingDetails = [];
-    let i = 0;
-    while (weddingData[`weddingDetails[${i}][startDt]`]) {
-      const events = [];
-      let j = 0;
-      while (weddingData[`weddingDetails[${i}][events][${j}][eventName]`]) {
-        events.push({
-          eventName:
-            weddingData[`weddingDetails[${i}][events][${j}][eventName]`],
-          description:
-            weddingData[`weddingDetails[${i}][events][${j}][description]`],
-          music: weddingData[`weddingDetails[${i}][events][${j}][music]`],
-          dressCode:
-            weddingData[`weddingDetails[${i}][events][${j}][dressCode]`],
-        });
-        j++;
-      }
+    // const file = req.files.photo;
 
-      weddingDetails.push({
-        startDt: weddingData[`weddingDetails[${i}][startDt]`],
-        time: weddingData[`weddingDetails[${i}][time]`],
-        state: weddingData[`weddingDetails[${i}][state]`],
-        city: weddingData[`weddingDetails[${i}][city]`],
-        totalEvents: weddingData[`weddingDetails[${i}][totalEvents]`],
-        address1: weddingData[`weddingDetails[${i}][address1]`],
-        address2: weddingData[`weddingDetails[${i}][address2]`],
-        nameOfVenue: weddingData[`weddingDetails[${i}][nameOfVenue]`],
-        events,
-      });
+    // const weddingDetails = [];
+    // let i = 0;
+    // while (weddingData[`weddingDetails[${i}][startDt]`]) {
+    //   const events = [];
+    //   let j = 0;
+    //   while (weddingData[`weddingDetails[${i}][events][${j}][eventName]`]) {
+    //     events.push({
+    //       eventName:
+    //         weddingData[`weddingDetails[${i}][events][${j}][eventName]`],
+    //       description:
+    //         weddingData[`weddingDetails[${i}][events][${j}][description]`],
+    //       music: weddingData[`weddingDetails[${i}][events][${j}][music]`],
+    //       dressCode:
+    //         weddingData[`weddingDetails[${i}][events][${j}][dressCode]`],
+    //     });
+    //     j++;
+    //   }
 
-      i++;
-    }
+    //   weddingDetails.push({
+    //     startDt: weddingData[`weddingDetails[${i}][startDt]`],
+    //     time: weddingData[`weddingDetails[${i}][time]`],
+    //     state: weddingData[`weddingDetails[${i}][state]`],
+    //     city: weddingData[`weddingDetails[${i}][city]`],
+    //     totalEvents: weddingData[`weddingDetails[${i}][totalEvents]`],
+    //     address1: weddingData[`weddingDetails[${i}][address1]`],
+    //     address2: weddingData[`weddingDetails[${i}][address2]`],
+    //     nameOfVenue: weddingData[`weddingDetails[${i}][nameOfVenue]`],
+    //     events,
+    //   });
 
-    const cloudinaryUpload = util.promisify(cloudinary.uploader.upload);
-    const result = await cloudinaryUpload(file.tempFilePath);
+    //   i++;
+    // }
+
+    // const cloudinaryUpload = util.promisify(cloudinary.uploader.upload);
+    // const result = await cloudinaryUpload(file.tempFilePath);
 
     const wedding = await weddingModel.create({
       ...weddingData,
-      weddingDetails,
-      photo: result.secure_url,
+      // weddingDetails,
+      // photo: result.secure_url,
     });
 
     res.status(201).json({ success: true, data: wedding });
